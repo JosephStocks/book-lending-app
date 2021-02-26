@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { bookSearchByISBN, bookSearch } from "./api-calls/3rd-party-apis";
+import { bookSearchByISBN, bookSearch, bookSearchByTitle, bookSearchByAuthor } from "./api-calls/3rd-party-apis";
 import axios from "axios";
 import styled from "styled-components";
+import Book from "./components/Book";
 
 const Form = styled.form`
   margin-left: auto;
@@ -28,9 +29,9 @@ export default function App() {
 
   const search = () => {
     (async () => {
-      let result = await bookSearch(searchText);
-      console.log(result.items);
-      setBooks(result.items);
+      let result = await bookSearchByTitle(searchText);
+      console.log(result);
+      // setBooks(result.items);
     })();
   };
 
@@ -54,9 +55,10 @@ export default function App() {
           <button type="submit">Submit</button>
         </Form>
         <div>
-          {books.map((book) => (
-            <div key={book.id}>{book.volumeInfo.title}</div>
-          ))}
+          {/* {books.map((book) => (
+            // <div key={book.id}>{book.volumeInfo.title}</div>
+            <Book book={book} />
+          ))} */}
         </div>
       </div>
     </>
